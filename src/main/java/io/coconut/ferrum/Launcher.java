@@ -5,7 +5,7 @@ import io.coconut.ferrum.utils.Formatter;
 
 public class Launcher {
     public static final String VERSION_LIST = "https://launchermeta.mojang.com/mc/game/version_manifest.json";
-    public static final String GAME_PATH = System.getProperty("user.home") + "/.minecraft";
+    public static final String GAME_PATH = System.getProperty("user.home") + "/.Fminecraft";
 
     private String username;
     private String version;

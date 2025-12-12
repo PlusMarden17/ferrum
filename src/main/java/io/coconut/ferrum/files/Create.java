@@ -15,8 +15,7 @@ public class Create {
             Files.createDirectories(Paths.get(GAME_PATH + "/assets/objects"));
             Files.createDirectories(Paths.get(GAME_PATH + "/natives"));
         } catch (IOException e) {
-            System.err.println("An error occurred while trying to create directories");
-            e.printStackTrace();
+            System.err.println("An error occurred while trying to create directories: " + e.getMessage());
         }
     }
 }
