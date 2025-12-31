@@ -2,18 +2,9 @@ package io.coconut.ferrum;
 
 import io.coconut.ferrum.files.Create;
 import io.coconut.ferrum.files.Download;
-import io.coconut.ferrum.utils.Checker;
 import io.coconut.ferrum.utils.Command;
 import io.coconut.ferrum.utils.Formatter;
 import org.json.JSONObject;
-
-import io.coconut.ferrum.files.Create;
-import io.coconut.ferrum.files.Download;
-import io.coconut.ferrum.utils.Checker;
-import io.coconut.ferrum.utils.Command;
-import io.coconut.ferrum.utils.Formatter;
-import org.json.JSONObject;
-
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -27,13 +18,6 @@ public class Launcher {
     private String min;
     private String max;
 
-
-    public Launcher(String username, String version, int minMem, int maxMem) throws Exception {
-        setUsername(username);
-        setVersion(version);
-        setMemory(minMem, maxMem);
-    }
-
     public void setUsername(String username) {
         if (username == null || username.trim().isEmpty()) {
             System.err.println("Error: Username cannot be null or empty!");
@@ -42,9 +26,6 @@ public class Launcher {
     }
 
     public void setVersion(String version) {
-        if (!Checker.isVersionValid(version)) {
-            System.err.println("Error: Invalid version type format! Correct: `X.Y.X`");
-        }
         this.version = version;
     }
 
@@ -67,6 +48,9 @@ public class Launcher {
         Create.createDirs(this.getVersion());
 
         String versionURL = Download.findURL(this.version);
+        if (versionURL == null) {
+            throw new Exception("Version not found!");
+        }
         JSONObject versionInfo = Download.downloadJSON(versionURL);
 
         String versionDir = GAME_PATH + "/versions/" + version;
