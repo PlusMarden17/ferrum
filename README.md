@@ -4,7 +4,7 @@
 
 # Ferrum
 
-Ferum - simple library that allows you to create a Minecraft launcher in Java
+Ferrum - a simple library that allows you to create a Minecraft launcher in Java
 
 # Usage
 
@@ -25,3 +25,12 @@ public class Main {
   }
 }
 ```
+
+# Building
+
+```bash
+git clone https://github.com/PlusMarden17/ferrum.git
+cd ferrum
+mvn clean package
+```
+.jar file will be stored in "target" directory with a name like this: "Ferrum-1.0.1-ALPHA-jar-with-dependencies.jar" (! Please choose .jar with "jar-with-dependencies" in the name !)
