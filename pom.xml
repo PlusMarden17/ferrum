@@ -4,9 +4,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>io.coconut.ferrum</groupId>
+    <groupId>ferrum</groupId>
     <artifactId>Ferrum</artifactId>
-    <version>1.0.1-ALPHA</version>
+    <version>1.0.2-ALPHA</version>
 
     <properties>
         <maven.compiler.source>21</maven.compiler.source>

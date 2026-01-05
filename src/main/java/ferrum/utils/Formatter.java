@@ -1,4 +1,4 @@
-package io.coconut.ferrum.utils;
+package ferrum.utils;
 
 public class Formatter {
     public static String formatMin(int min) {

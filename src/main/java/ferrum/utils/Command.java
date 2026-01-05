@@ -1,6 +1,6 @@
-package io.coconut.ferrum.utils;
+package ferrum.utils;
 
-import io.coconut.ferrum.Launcher;
+import ferrum.Launcher;
 import org.json.JSONObject;
 
 public class Command {

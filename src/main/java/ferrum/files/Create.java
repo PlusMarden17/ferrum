@@ -1,4 +1,4 @@
-package io.coconut.ferrum.files;
+package ferrum.files;
 
 import java.io.IOException;
 import java.nio.file.Files;

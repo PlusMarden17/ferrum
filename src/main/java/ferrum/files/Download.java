@@ -1,14 +1,11 @@
-package io.coconut.ferrum.files;
+package ferrum.files;
 
-import io.coconut.ferrum.Launcher;
-import io.coconut.ferrum.utils.Checker;
-import io.coconut.ferrum.utils.Fetcher;
+import ferrum.Launcher;
+import ferrum.utils.Checker;
+import ferrum.utils.Fetcher;
 import org.json.*;
-
-import javax.lang.model.type.DeclaredType;
 import java.io.*;
 import java.net.URL;
-import java.nio.channels.Channel;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
 import java.nio.file.Files;
@@ -96,6 +93,10 @@ public class Download {
     }
 
     public static void downloadAssets(JSONObject vInfo) throws Exception {
+        if (!vInfo.has("assetIndex")) {
+            System.out.println("Using legacy version");
+            return;
+        }
         JSONObject assetIndex = vInfo.getJSONObject("assetIndex");
         String indexId = assetIndex.getString("id");
         String indexUrl = assetIndex.getString("url");

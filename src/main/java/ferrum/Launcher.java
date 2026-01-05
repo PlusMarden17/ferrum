@@ -1,9 +1,9 @@
-package io.coconut.ferrum;
+package ferrum;
 
-import io.coconut.ferrum.files.Create;
-import io.coconut.ferrum.files.Download;
-import io.coconut.ferrum.utils.Command;
-import io.coconut.ferrum.utils.Formatter;
+import ferrum.files.Create;
+import ferrum.files.Download;
+import ferrum.utils.Command;
+import ferrum.utils.Formatter;
 import org.json.JSONObject;
 import java.io.File;
 import java.nio.file.Files;
@@ -17,6 +17,7 @@ public class Launcher {
     private String version;
     private String min;
     private String max;
+    private VersionType type;
 
     public void setUsername(String username) {
         if (username == null || username.trim().isEmpty()) {
@@ -56,7 +57,6 @@ public class Launcher {
         String versionDir = GAME_PATH + "/versions/" + version;
         String jarPath = versionDir + "/" + version + ".jar";
         String clientURL = versionInfo.getJSONObject("downloads").getJSONObject("client").getString("url");
-
         if (!Files.exists(Paths.get(jarPath))) {
             System.out.println("Downloading client jar...");
             Download.downloadFile(clientURL, jarPath);

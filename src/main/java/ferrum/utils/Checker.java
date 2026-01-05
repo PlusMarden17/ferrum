@@ -1,12 +1,24 @@
-package io.coconut.ferrum.utils;
+package ferrum.utils;
 
+import io.coconut.ferrum.VersionType;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class Checker {
-    public static boolean isVersionValid(String versionStr) {
-        String r = "\\d+\\.\\d+\\.\\d+";
-        return versionStr.matches(r);
+    public static String whichType(String version) {
+        VersionType type;
+
+        if (version.startsWith("b") || version.contains("beta")) {
+            type = VersionType.BETA;
+        } else if (version.startsWith("a") || version.contains("alpha")) {
+            type = VersionType.ALPHA;
+        } else if (version.contains("w") || version.contains("-pre") || version.contains("-rc")) {
+            type = VersionType.SNAPSHOT;
+        } else {
+            type = VersionType.RELEASE;
+        }
+
+        return type.getFriendlyName();
     }
 
     public static boolean isByRules(JSONArray rules) {
