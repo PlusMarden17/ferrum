@@ -12,16 +12,12 @@ Ferrum - a simple Java library that allows you to create a Minecraft launcher.
 import io.coconut.ferrum.*;
 
 public class Main {
-  public static void main(String[] args) throws Exception {
-    /*
-    Arguments:
-    1: Username
-    2: Version
-    3: Min RAM
-    4: Max RAM
-    */
-    Launcher launcher = new Launcher("Player", "1.12.2", 1, 2);
-    launcher.launch(); // Method to launch the game
+  public static void main(String[] args) {
+    Launcher launcher = new Launcher();
+    launcher.setUsername("Player");
+    launcher.setVersion("1.12.2");
+    launcher.setMemory(1, 2);
+    launcher.launch();
   }
 }
 ```
@@ -33,4 +29,4 @@ git clone https://github.com/PlusMarden17/ferrum.git
 cd ferrum
 mvn clean package
 ```
-.jar file will be stored in "target" directory with a name like this: "Ferrum-1.0.1-ALPHA-jar-with-dependencies.jar" (! Please choose .jar with "jar-with-dependencies" in the name !)
+.jar file will be stored in "out/assembly.dest/" directory with a name like this: "out.jar"

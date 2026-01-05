@@ -37,3 +37,11 @@ build/
 
 ### Mac OS ###
 .DS_Store
+
+## SCALA ##
+.metals
+.bsp
+out/
+
+## MINECRAFT ##
+logs
