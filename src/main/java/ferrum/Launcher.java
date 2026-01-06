@@ -17,7 +17,6 @@ public class Launcher {
     private String version;
     private String min;
     private String max;
-    private VersionType type;
 
     public void setUsername(String username) {
         if (username == null || username.trim().isEmpty()) {
