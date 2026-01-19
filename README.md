@@ -4,33 +4,47 @@
 
 # Ferrum
 
-Ferrum - a simple Java library that allows you to create a Minecraft launcher.
+Ferrum - проста бібліотека двигун для створення майнкрафт запускачів.
 
-# Usage
+# Використання
+
+Цей код запустить версію 1.20.1 з нікнеймом Player без логів в консоль:
 
 ```java
-import io.coconut.ferrum.*;
+import ferrum.core.Launcher;
+import ferrum.core.Profile;
+import ferrum.core.User;
 
 public class Main {
   public static void main(String[] args) throws Exception {
-    /*
-    Arguments:
-    1: Username
-    2: Version
-    3: Min RAM
-    4: Max RAM
-    */
-    Launcher launcher = new Launcher("Player", "1.12.2", 1, 2);
-    launcher.launch(); // Method to launch the game
+    Launcher launcher = new Launcher();
+    launcher.muteLogs(true);
+
+    Profile profile = new Profile();
+    profile.setVersion("1.20.1");
+    profile.setMemory(1, 2);
+
+    User user = new User();
+    user.setUsername("Player");
+
+    launcher.launch(profile, user);
   }
 }
 ```
 
-# Building
+# Збірка
 
+Спочатку потрібно завантажити репозиторій та увійти в нього:
 ```bash
 git clone https://github.com/PlusMarden17/ferrum.git
 cd ferrum
+```
+Тепер якщо ви на Unix-like операційній системі то:
+```bash
 ./gradlew build
 ```
-.jar file will be stored in "build/libs"
+А якщо ви на Windows то:
+```batch
+./gradlew.bat build
+```
+.jar буде знаходитися в "build/libs"
