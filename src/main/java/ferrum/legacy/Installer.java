@@ -1,17 +1,25 @@
 package ferrum.legacy;
 
 import ferrum.utils.Fetcher;
+import ferrum.utils.Logger;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.net.URL;
+import java.nio.channels.Channels;
+import java.nio.channels.ReadableByteChannel;
 
 public class Installer {
-    /*
-    Щоб грати в старі Beta/Alpha версії потрібні старі версії Java (По типу Java 8)
-    для того щоб користувачеві не потрібно було б встановлювати її самому, якщо версія стара то Java 8
-    встановиться сама
-    */
     public static void start() {
         String urlString = null;
         String os = Fetcher.fetchOS();
         String arch = Fetcher.fetchArch();
+
+        if (arch == null) {
+            Logger.error("Error: Unknown system architecture!");
+            return;
+        }
 
         if (arch.contains("x64")) {
             if (os.contains("win")) {
@@ -37,19 +45,20 @@ public class Installer {
 
         if (urlString != null) {
             String fileName = urlString.substring(urlString.lastIndexOf('/') + 1);
-            download(urlString, fileName);
-            install(fileName, os);
+            if (download(urlString, fileName)) {
+                install(fileName, os);
+            }
         } else {
-            System.err.println("Error: Couldn't find download link for your OS!");
+            Logger.error("Error: Couldn't find download link for your OS!");
         }
     }
 
-    public static void download(String urlString, String fileName) {
+    public static boolean download(String urlString, String fileName) {
         try (ReadableByteChannel rbc = Channels.newChannel(new URL(urlString).openStream()); FileOutputStream fos = new FileOutputStream(fileName)) {
             fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
-            System.out.println("Successfuly downloaded Java 8!");
+            Logger.print("Successfuly downloaded Java 8!");
         } catch (IOException ie) {
-            System.err.println("Something went wrong while trying to download Java 8: " + ie.getMessage());
+            Logger.error("Something went wrong while trying to download Java 8: " + ie.getMessage());
         }
     }
 
@@ -60,7 +69,7 @@ public class Installer {
                 pb.inheritIO().start().waitFor();
             } else if (os.contains("nux")) {
                 ProcessBuilder mk = new ProcessBuilder("mkdir", "-p", "java8_runtime");
-                mkdir.start().waitFor();
+                mk.start().waitFor();
                 ProcessBuilder tar = new ProcessBuilder("tar", "-xzf", fileName, "-C", "java8_runtime", "--strip-components=1");
                 tar.inheritIO().start().waitFor();
             } else if (os.contains("mac")) {
@@ -68,28 +77,41 @@ public class Installer {
                 pb.start().waitFor();
             }
         } catch (Exception e) {
-            System.err.println("An error occurred while trying to install Java 8: " + e.getMessage());
+            Logger.error("An error occurred while trying to install Java 8: " + e.getMessage());
         }
     }
 
     public static String getJavaPath() {
         String os = Fetcher.fetchOS();
-        String path = "java";
-        Runtime.Version curr = Runtime.Version();
-        int major = curr.feature();
+        String jdk = Fetcher.fetchJDK();
 
-        if (major == 8) {
-            if (os.contains("win")) {
-                path = "C:\\Program Files\\Eclipse Adoptium\\jdk-8.0.392.8-hotspot\\bin\\java.exe";
-            } else if (os.contains("nux")) {
-                path = "";
-            } else if (os.contains("mac")) {
-                path = "";
-            }
-        } else {
-            System.out.println("You don't have Java 8 installed on your machine");
+        if (jdk.startsWith("1.8")) {
+            return "java";
         }
 
-        return path;
+        String locPath = "";
+
+        if (os.contains("win")) {
+            File ij = new File("C:\\Program Files\\Eclipse Adoptium\\jdk-8.0.392.8-hotspot\\bin\\java.exe");
+            if (ij.exists()) {
+                locPath = ij.getAbsolutePath();
+            } else {
+                Logger.error("Error: Unable to find Java 8 on your machine!");
+            }
+        } else if (os.contains("nux")) {
+            locPath = new File("java8_runtime/bin/java").getAbsolutePath();
+        } else if (os.contains("mac")) {
+            locPath = new File("java8_runtime/Contents/Home/bin/java").getAbsolutePath();
+        } else {
+            Logger.error("Error: Unsupported OS!");
+        }
+
+        File jFile = new File(locPath);
+        if (jFile.exists()) {
+            return locPath;
+        }
+
+        Logger.error("Error: Unable to find Java 8 on your machine!");
+        return null;
     }
 }

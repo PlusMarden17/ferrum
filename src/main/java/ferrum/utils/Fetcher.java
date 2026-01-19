@@ -26,7 +26,7 @@ public class Fetcher {
         return System.getProperty("os.name").toLowerCase();
     }
 
-    public static String getArch() {
+    public static String fetchArch() {
         String arch = System.getProperty("os.arch").toLowerCase();
 
         if (arch.contains("aarch64") || arch.contains("arm")) {
@@ -41,7 +41,7 @@ public class Fetcher {
         }
     }
 
-    public static int fetchJDK() {
+    public static String fetchJDK() {
         return System.getProperty("java.version");
     }
 }

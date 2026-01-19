@@ -1,8 +1,9 @@
 package ferrum.files;
 
-import ferrum.Launcher;
+import ferrum.core.Launcher;
 import ferrum.utils.Checker;
 import ferrum.utils.Fetcher;
+import ferrum.utils.Logger;
 import org.json.*;
 import java.io.*;
 import java.net.URL;
@@ -25,7 +26,7 @@ public class Download {
             }
             return null;
         } catch (Exception e) {
-            System.err.println("An error occurred while trying to find URL: " +  e.getMessage());
+            Logger.error("An error occurred while trying to find URL: " +  e.getMessage());
             return null;
         }
     }
@@ -75,7 +76,7 @@ public class Download {
 
                 if (downloads.has("classifiers")) {
                     JSONObject classifiers = downloads.getJSONObject("classifiers");
-                    String nativeKey = Natives.getOS(); // natives-windows, etc.
+                    String nativeKey = Natives.getOS();
                     if (nativeKey != null && classifiers.has(nativeKey)) {
                         JSONObject nativeLib = classifiers.getJSONObject(nativeKey);
                         String nativePath = Launcher.GAME_PATH + "/libraries/" + nativeLib.getString("path");
@@ -94,7 +95,6 @@ public class Download {
 
     public static void downloadAssets(JSONObject vInfo) throws Exception {
         if (!vInfo.has("assetIndex")) {
-            System.out.println("Using legacy version");
             return;
         }
         JSONObject assetIndex = vInfo.getJSONObject("assetIndex");
@@ -118,7 +118,7 @@ public class Download {
                 try {
                     downloadFile(url, path);
                 } catch (Exception e) {
-                    System.err.println("Found and skipped invalid asset...");
+                    Logger.error("Found and skipped invalid asset...");
                 }
             }
         }

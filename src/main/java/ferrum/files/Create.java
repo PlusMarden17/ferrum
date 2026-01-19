@@ -4,7 +4,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-import static io.coconut.ferrum.Launcher.GAME_PATH;
+import ferrum.utils.Logger;
+import static ferrum.core.Launcher.GAME_PATH;
 
 public class Create {
     public static void createDirs(String version) {
@@ -18,7 +19,7 @@ public class Create {
             Files.createDirectories(Paths.get(GAME_PATH + "/versions/" + version));
             Files.createDirectories(Paths.get(GAME_PATH + "/natives/" + version));
         } catch (IOException e) {
-            System.err.println("An error occurred while trying to create directories: " + e.getMessage());
+            Logger.error("An error occurred while trying to create directories: " + e.getMessage());
         }
     }
 }
