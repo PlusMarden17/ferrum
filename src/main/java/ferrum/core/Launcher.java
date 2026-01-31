@@ -3,25 +3,15 @@ package ferrum.core;
 import ferrum.files.Create;
 import ferrum.files.Download;
 import ferrum.utils.Command;
-import ferrum.utils.Formatter;
 import ferrum.types.Log;
-
 import ferrum.utils.Logger;
+
 import org.json.JSONObject;
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
 public class Launcher {
-    /*
-    19.1.2026
-    В попередніх версіях лаунчер міг мати тільки 1 користувача який міг запустити лише 1 версію
-    за один раз і вона мала тільки одні налаштування.
-    Зараз користувач, версія та лаунчер це різні класи:
-    User - користувач (має username)
-    Profile - версія (кожна версія тепер має власні налаштування)
-    Launcher - запускач (тепер він тільки для запуску гри та конфігурація запускача)
-    */
 
     public static final String VERSION_LIST = "https://launchermeta.mojang.com/mc/game/version_manifest.json";
     public static final String GAME_PATH = System.getProperty("user.home") + "/.Fminecraft";
