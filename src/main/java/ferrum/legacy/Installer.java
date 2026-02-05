@@ -56,9 +56,11 @@ public class Installer {
     public static boolean download(String urlString, String fileName) {
         try (ReadableByteChannel rbc = Channels.newChannel(new URL(urlString).openStream()); FileOutputStream fos = new FileOutputStream(fileName)) {
             fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
-            Logger.print("Successfuly downloaded Java 8!");
+            Logger.print("Successfully downloaded Java 8!");
+            return true;
         } catch (IOException ie) {
             Logger.error("Something went wrong while trying to download Java 8: " + ie.getMessage());
+            return false;
         }
     }
 
