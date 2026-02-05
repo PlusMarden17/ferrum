@@ -1,6 +1,6 @@
 package ferrum.utils;
 
-import io.coconut.ferrum.VersionType;
+import ferrum.types.Version;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
