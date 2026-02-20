@@ -1,6 +1,6 @@
 package ferrum.utils;
 
-import ferrum.types.Version;
+import ferrum.Version;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -9,7 +9,7 @@ public class Checker {
         VersionType type;
 
         if (version.startsWith("b") || version.contains("beta")) {
-            type = VersionType.BETA;
+            type = Version.BETA;
         } else if (version.startsWith("a") || version.contains("alpha")) {
             type = VersionType.ALPHA;
         } else if (version.contains("w") || version.contains("-pre") || version.contains("-rc")) {

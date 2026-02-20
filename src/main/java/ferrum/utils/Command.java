@@ -12,7 +12,7 @@ public class Command {
             String nativesDir = Launcher.GAME_PATH + "/natives/" + profile.getVersion();
 
             ProcessBuilder pb = new ProcessBuilder(
-                    "java",
+                    "Installer.getJavaPath()",
                     Formatter.formatMin(profile.getMinMem()),
                     Formatter.formatMax(profile.getMaxMem()),
                     "-Djava.library.path=" + nativesDir,
